@@ -43,7 +43,7 @@ var filesystem = require('../server/utils/filesystem').withBaseDir(dir,
 });
 
 // Launch the server
-var server=require('../server/scriptedServer.js').start(filesystem);
+var server=require('../server/scriptedServer.js').start(filesystem, options);
 
 // on return, assume it is up and open the browser
 if (!suppressOpen) {
