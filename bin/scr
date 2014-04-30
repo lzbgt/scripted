@@ -23,6 +23,8 @@ options = optimist
 	.describe('r','restart the server')
 	.describe('k','kill the server')
 	.describe('h','this help info')
+	.describe('p','server port')
+        .alias('p', 'port')
 	.argv;
 
 if (options.h) {
