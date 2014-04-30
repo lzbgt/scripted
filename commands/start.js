@@ -55,8 +55,9 @@ function start(options) {
 
 	var file = options._;
 	var suppressOpen = options.suppressOpen?'true':'false';
-	// console.log("path is "+path.resolve(path.dirname(module.filename),'../commands/scripted.js'));
-	child = spawn('node', [ path.resolve(path.dirname(module.filename),'../commands/scripted.js'), suppressOpen, file ],{
+	console.log("working dir:"+file);
+        var port = options.port?'-p ' + options.port:'';
+	child = spawn('node', [ path.resolve(path.dirname(module.filename),'../commands/scripted.js'), port, file, suppressOpen],{
 		detached:true,
 		stdio: ['ignore', out, err]
 	});
