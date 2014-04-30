@@ -49,8 +49,8 @@ function ping(options) {
 
 function start(options) {
 	var tmp = process.platform == 'win32' ? process.env.TEMP : '/tmp',
-		out = fs.openSync(tmp + '/scripted.log', 'a'),
-		err = fs.openSync(tmp + '/scripted.log', 'a'),
+		out = fs.openSync(tmp + '/scripted.log', 'w'),
+		err = fs.openSync(tmp + '/scripted.log', 'w'),
 		child;
 
 	var file = options._;
@@ -62,6 +62,10 @@ function start(options) {
 		stdio: ['ignore', out, err]
 	});
 	child.unref();
+	var logfile = tmp + '/scripted.log';
+        console.log('Log file: ' + logfile);
+        tailf = spawn('tail', [ '-10f', logfile ],{ stdio: 'inherit' });
+        child.unref();
 }
 
 module.exports.exec = exec;
