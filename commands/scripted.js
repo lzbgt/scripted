@@ -19,10 +19,13 @@
 var path = require('path');
 var openBrowser = require('./open').open;
 var url = "http://localhost:7261";
-var suppressOpen = process.argv[3]=='true';
-var file = process.argv[2];
 
-var dir = process.argv[2]||process.cwd();
+var options = require('optimist').alias('p', 'port').argv;
+console.log(options);
+var dir = options._[0]||process.cwd();
+
+var suppressOpen = options._[1]==='false'?false:true;
+
 
 try {
     require('fs').readdirSync(dir);
@@ -44,5 +47,5 @@ var server=require('../server/scriptedServer.js').start(filesystem);
 
 // on return, assume it is up and open the browser
 if (!suppressOpen) {
-	openBrowser(process.argv[3]);
+	openBrowser(options._[0]);
 }
