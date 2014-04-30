@@ -65,7 +65,6 @@ function start(options) {
 	var logfile = tmp + '/scripted.log';
         console.log('Log file: ' + logfile);
         tailf = spawn('tail', [ '-10f', logfile ],{ stdio: 'inherit' });
-        child.unref();
 }
 
 module.exports.exec = exec;
