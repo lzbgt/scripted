@@ -19,17 +19,25 @@
 var path = require('path');
 var openBrowser = require('./open').open;
 var url = "http://localhost:7261";
-var suppressOpen = process.argv[2]=='true';
-var file = process.argv[3];
+var suppressOpen = process.argv[3]=='true';
+var file = process.argv[2];
 
-var filesystem = require('../server/utils/filesystem').withBaseDir(null);
+var dir = process.argv[2]||process.cwd();
 
-// Hack alert! The code below is just to play with a very simple case of
-// a 'plugable fs'.
-//var filesystem = require('../server/utils/filesystem').withBaseDir('/home/kdvolder', {
-//	userHome: '/',
-//	scriptedHome: 'commandline-dev/new-tools/scripted'
-//});
+try {
+    require('fs').readdirSync(dir);
+    console.log(dir);
+}catch (error) {
+    console.log(error);
+    throw("invalid dir");
+}
+
+
+var filesystem = require('../server/utils/filesystem').withBaseDir(dir,
+ {
+        userHome: dir,
+        scriptedHome: dir
+});
 
 // Launch the server
 var server=require('../server/scriptedServer.js').start(filesystem);
